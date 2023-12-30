@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, type Ref } from 'vue';
 import AppMap from '../components/AppMap.vue'
+import AppLoader from "../components/AppLoader.vue"
+
 import '../assets/main.css'
+
 const query: Ref<string> = ref("");
 const isLoading: Ref<boolean> = ref(false);
 const response: any = ref(null);
@@ -51,13 +54,13 @@ const postData = async () => {
       <div>
         <button @click="postData">Click</button>
       </div>
-      <AppLoader v-show="!isLoading" />
+      <AppLoader v-show="isLoading" />
       <div v-if="!isLoading && response?.opanAiResponse?.stringResponse">
         <div class="margin-b-15">
           {{ response.opanAiResponse.stringResponse }}
         </div>
         <div>
-          <AppMap />
+          <AppMap :mapData="response.routes" />
         </div>
       </div>
     </div>
